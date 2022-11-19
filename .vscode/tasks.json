@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/csharp/LeetCode.csproj",
+                "-p:StartupObject=LeetCode.P${input:problem}.S${input:solution}.Program",
+                "-p:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "problem",
+            "description": "Please enter the problem ID.",
+            "default": "",
+            "type": "promptString"
+        },
+        {
+            "id": "solution",
+            "description": "Please enter the solution number.",
+            "default": "1",
+            "type": "promptString"
+        }
+    ]
+}

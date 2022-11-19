@@ -4,6 +4,8 @@
  * [1] 两数之和
  */
 
+namespace LeetCode.P1.S1;
+
 // @lc code=start
 public class Solution
 {
@@ -17,10 +19,9 @@ public class Solution
                     return new[] { i, j };
             }
         }
-        
+
         // no solution
         return new[] { -1, -1 };
     }
 }
 // @lc code=end
-

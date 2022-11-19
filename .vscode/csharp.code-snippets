@@ -1,0 +1,26 @@
+{
+	"SolutionNamespace": {
+		"scope": "csharp",
+		"prefix": "ns",
+		"body": [
+			"namespace LeetCode.P$1.S$2;"
+		],
+		"description": "Solution Namespace"
+	},
+	"TestProgram": {
+		"scope": "csharp",
+		"prefix": "tp",
+		"body": [
+			"public static class Program",
+			"{",
+			"    public static void Main()",
+			"    {",
+			"        var solution = new Solution();",
+			"        ",
+			"        $1",
+			"    }",
+			"}"
+		],
+		"description": "Test Program"
+	}
+}
