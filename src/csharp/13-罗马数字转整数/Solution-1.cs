@@ -16,8 +16,8 @@ public class Solution
 
         foreach (var c in s)
         {
-            // var value = GetValue(c);
-            var value = RomanValues[c];
+            var value = GetValue(c);
+            // var value = RomanValues[c];
             result += value;
             if (value > last) result -= last * 2;
             last = value;
@@ -26,30 +26,30 @@ public class Solution
         return result;
     }
 
-    public static Dictionary<char, int> RomanValues = new()
-    {
-        { 'I', 1 },
-        { 'V', 5 },
-        { 'X', 10 },
-        { 'L', 50 },
-        { 'C', 100 },
-        { 'D', 500 },
-        { 'M', 1000 },
-    };
-
-    // public int GetValue(char c)
+    // public static Dictionary<char, int> RomanValues = new()
     // {
-    //     return c switch
-    //     {
-    //         'I' => 1,
-    //         'V' => 5,
-    //         'X' => 10,
-    //         'L' => 50,
-    //         'C' => 100,
-    //         'D' => 500,
-    //         'M' => 1000,
-    //         _ => throw new ArgumentOutOfRangeException()
-    //     };
-    // }
+    //     { 'I', 1 },
+    //     { 'V', 5 },
+    //     { 'X', 10 },
+    //     { 'L', 50 },
+    //     { 'C', 100 },
+    //     { 'D', 500 },
+    //     { 'M', 1000 },
+    // };
+
+    public int GetValue(char c)
+    {
+        return c switch
+        {
+            'I' => 1,
+            'V' => 5,
+            'X' => 10,
+            'L' => 50,
+            'C' => 100,
+            'D' => 500,
+            'M' => 1000,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
 }
 // @lc code=end
