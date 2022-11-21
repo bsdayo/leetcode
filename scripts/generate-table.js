@@ -1,30 +1,35 @@
 const fs = require('fs')
 
-let content = fs.readFileSync('README.md', { encoding: 'utf-8' })
-const langs = fs.readdirSync('src')
+// 语言标题
+const langTitleMap = {
+  csharp: 'C#',
+  typescript: 'TypeScript',
+}
 
-// 去除原本内容
-content = content.replace(/(?<=## 已完成的题解).*/s, '\n\n')
+const file = fs.readFileSync('README.md', { encoding: 'utf-8' })
+const langs = fs.readdirSync('src')
+let content = '\n'
 
 // 生成表头
-content += '| 题解 |'
-for (let lang of langs)
-  content += ` ${lang
-    .replace('csharp', 'C#')
-    .replace('typescript', 'TypeScript')} |`
-content += '\n|:----|' + ':---:|'.repeat(langs.length) + '\n'
+content += '| ID | 标题 | 难度 |'
+for (let lang of langs) content += ` ${langTitleMap[lang]} |`
+content += '\n|:---:|:----|:---:|' + ':---:|'.repeat(langs.length) + '\n'
 
+// { [problemName]: { [lang]: ['Solution-1.cs', 'Solution-2.cs', ...] } }
 const problems = {}
 
 // 读取目录信息
 for (let lang of langs)
   for (let problemName of fs.readdirSync(`src/${lang}`)) {
     if (!problemName.includes('-')) continue
-    if (problems[problemName]) {
-      problems[problemName][lang] = true
-    } else {
-      problems[problemName] = { [lang]: true }
-    }
+
+    const files = fs
+      .readdirSync(`src/${lang}/${problemName}`)
+      .filter((s) => s.startsWith('Solution-'))
+
+    problems[problemName] = Object.assign(problems[problemName] ?? {}, {
+      [lang]: files,
+    })
   }
 
 // 根据序号排序
@@ -34,16 +39,39 @@ var sorted = Object.keys(problems).sort(
 
 // 生成表内容
 for (let problemName of sorted) {
-  content += `| ${problemName} |`
+  const arr = problemName.split('-')
+  content += `| ${arr[0]} | ${arr[2]} | ${getLight(arr[1])} |`
+
   for (let lang of langs) {
-    content += ` ${getLight(problems[problemName][lang])} |`
+    if (!problems[problemName][lang]) {
+      content += ` _no_ |`
+      continue
+    }
+
+    var solutionLinks = problems[problemName][lang].map(
+      (s) =>
+        `[${s.split('.')[0].replace('olution-', '')}]` +
+        `(./src/${lang}/${problemName}/${s})`
+    )
+
+    content += ` ${solutionLinks.join(', ')} |`
   }
   content += '\n'
 }
 
 // 写入文件
-fs.writeFileSync('README.md', content)
+fs.writeFileSync(
+  'README.md',
+  file.replace(/(?<=<!-- Start Table -->).*(?=<!-- End Table -->)/s, content)
+)
 
 function getLight(val) {
-  return val ? '🟢' : '🔴'
+  switch (val) {
+    case 'easy':
+      return '🟢'
+    case 'medium':
+      return '🟡'
+    case 'hard':
+      return '🔴'
+  }
 }
