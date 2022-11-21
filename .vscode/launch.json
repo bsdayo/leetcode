@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/csharp/bin/Debug/net7.0/LeetCode.dll",
+            "program": "${workspaceFolder}/src/csharp/bin/Debug/net6.0/LeetCode.dll",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false
