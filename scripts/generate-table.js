@@ -2,7 +2,22 @@ const fs = require('fs')
 
 // 语言标题
 const langTitleMap = {
+  bash: 'Bash',
+  c: 'C',
+  cpp: 'C++',
   csharp: 'C#',
+  golang: 'Go',
+  java: 'Java',
+  javascript: 'JavaScript',
+  kotlin: 'Kotlin',
+  mysql: 'MySQL',
+  php: 'PHP',
+  python: 'Python 2',
+  python3: 'Python 3',
+  ruby: 'Ruby',
+  rust: 'Rust',
+  scala: 'Scala',
+  swift: 'Swift',
   typescript: 'TypeScript',
 }
 

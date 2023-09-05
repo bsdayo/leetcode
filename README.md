@@ -4,7 +4,7 @@
 
 LeetCode 题解，使用 C# 和 TypeScript 编写
 
-![Last Commit](https://shields.io/github/last-commit/b1acksoil/LeetCode)
+![Last Commit](https://shields.io/github/last-commit/bsdayo/leetcode)
 
 </div>
 
