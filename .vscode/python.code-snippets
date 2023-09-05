@@ -1,0 +1,10 @@
+{
+	"FromTyping": {
+		"scope": "python",
+		"prefix": "ft",
+		"body": [
+			"from typing import $1"
+		],
+		"description": "from typing import ..."
+	},
+}
