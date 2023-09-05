@@ -30,17 +30,17 @@ content += '| ID | 标题 | 难度 |'
 for (let lang of langs) content += ` ${langTitleMap[lang]} |`
 content += '\n|:---:|:----|:---:|' + ':---:|'.repeat(langs.length) + '\n'
 
-// { [problemName]: { [lang]: ['Solution-1.cs', 'Solution-2.cs', ...] } }
+// { [problemName]: { [lang]: ['S1.cs', 'S2.cs', ...] } }
 const problems = {}
 
 // 读取目录信息
 for (let lang of langs)
   for (let problemName of fs.readdirSync(`src/${lang}`)) {
-    if (!problemName.includes('-')) continue
+    if (!problemName.includes('_')) continue
 
     const files = fs
       .readdirSync(`src/${lang}/${problemName}`)
-      .filter((s) => s.startsWith('Solution-'))
+      .filter((filename) => getSolutionNum(filename))
 
     problems[problemName] = Object.assign(problems[problemName] ?? {}, {
       [lang]: files,
@@ -48,28 +48,28 @@ for (let lang of langs)
   }
 
 // 根据序号排序
-var sorted = Object.keys(problems).sort(
-  (a, b) => parseInt(a.split('-')[0]) - parseInt(b.split('-')[0])
+const sorted = Object.keys(problems).sort(
+  (a, b) => parseInt(a.split('_')[0]) - parseInt(b.split('_')[0])
 )
 
 // 生成表内容
 for (let problemName of sorted) {
-  const arr = problemName.split('-')
+  const arr = problemName.split('_')
   content += `| ${arr[0]} | ${arr[2]} | ${getLight(arr[1])} |`
 
   for (let lang of langs) {
     if (!problems[problemName][lang]) {
-      content += ` _no_ |`
+      content += ` _N/A_ |`
       continue
     }
 
-    var solutionLinks = problems[problemName][lang].map(
-      (s) =>
-        `[${s.split('.')[0].replace('olution-', '')}]` +
-        `(./src/${lang}/${problemName}/${s})`
-    )
+    const solutionLinks = problems[problemName][lang].map((filename) => {
+      const name = filename.split('.')[0]
+      const desc = name.split('_')[1]
+      return `[${desc ?? name}](./src/${lang}/${problemName}/${filename})`
+    })
 
-    content += ` ${solutionLinks.join(', ')} |`
+    content += ` ${solutionLinks.join('、')} |`
   }
   content += '\n'
 }
@@ -89,4 +89,9 @@ function getLight(val) {
     case 'hard':
       return '🔴'
   }
+}
+
+function getSolutionNum(filename) {
+  const match = filename.match(/(?<=S)\d+/)
+  return match ? parseInt(match[0]) : null
 }
