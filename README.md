@@ -1,14 +1,11 @@
-﻿<div align="center">
-
-# LeetCode
+﻿# LeetCode
 
 个人 LeetCode 题解
 
 ![Last Commit](https://shields.io/github/last-commit/bsdayo/leetcode)
 
-</div>
-
 ## 已完成的题解
+
 <!-- Start Table -->
 | ID | 难度 | 标题 | 题解 |
 |:---:|:---:|:---:|:---:|
@@ -22,3 +19,7 @@
 | 724 | 🟢 | 寻找数组的中心下标 | **Python 3**: [S1](src/python3/724_easy_寻找数组的中心下标/S1.py) |
 | 1991 | 🟢 | 找到数组的中间位置 | **Python 3**: [S1](src/python3/1991_easy_找到数组的中间位置/S1.py) |
 <!-- End Table -->
+
+## License
+
+[MIT](LICENSE)
